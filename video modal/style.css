@@ -1,0 +1,427 @@
+/*
+Generated time: July 7, 2025 16:29
+This file was created by the app developer. Feel free to contact the original developer with any questions. It was minified (compressed) by AVADA. AVADA do NOT own this script.
+*/
+.bd-hidden {
+    overflow: hidden !important
+}
+
+.video_model {
+    position: fixed;
+    inset: 0px;
+    background: rgba(0, 0, 0, .8);
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(25px);
+    overflow-x: hidden;
+    transition: all .2s;
+    z-index: 2247483640 !important
+}
+
+.cross_button {
+    position: absolute;
+    z-index: 9999;
+    left: 12px;
+    top: 12px;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer
+}
+
+.cross_button span {
+    display: inline-block;
+    line-height: 0
+}
+
+.bottom_button:hover,
+.cross_button:hover,
+.top_button:hover {
+    background-color: rgba(0, 0, 0, .52);
+    border: 1px solid hsla(0, 0%, 100%, .2)
+}
+
+.siderBar_slider {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    left: 20px;
+    z-index: 9
+}
+
+.silder_dy_image {
+    display: flex;
+    flex-direction: column;
+    gap: 16px
+}
+
+.silder_dy_image img {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer
+}
+
+.silder_dy_image img:hover {
+    outline: 2px white solid
+}
+
+.bottom_button,
+.top_button {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer
+}
+
+.top_button {
+    margin-bottom: 8px
+}
+
+.bottom_button {
+    margin-top: 8px
+}
+
+.center_content {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    height: 100%
+}
+
+.videoContainer {
+    display: flex;
+    justify-content: center;
+    height: 100%
+}
+
+.videoContainer video {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover
+}
+
+.pause_button {
+    position: absolute;
+    cursor: pointer;
+    display: none
+}
+
+.right_bar {
+    position: absolute;
+    z-index: 9;
+    right: 20px;
+    top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px
+}
+
+.share_button,
+.sound_button button {
+    right: 12px;
+    top: 12px;
+    height: 52px;
+    width: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: 0 0;
+    outline: 0;
+    border: none
+}
+
+.share_button:hover,
+.sound_button button:hover {
+    background-color: rgba(0, 0, 0, .52);
+    border: 1px solid hsla(0, 0%, 100%, .2)
+}
+
+#unmuted_button {
+    display: none
+}
+
+.share_popup {
+    align-items: center;
+    background: rgba(0, 0, 0, .4);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
+    z-index: 2001;
+    inset: 0;
+    display: none
+}
+
+.share_popup_content {
+    animation: .15s ease-out 0s 1 normal none running grow-box;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, .2) 0 8px 24px;
+    box-sizing: border-box;
+    margin: 0 20px;
+    max-width: 471px;
+    min-width: 374px;
+    padding: 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+
+.croseIcon {
+    background-color: transparent;
+    border: unset;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    right: 20px;
+    top: 20px
+}
+
+.sp_heading {
+    font: 700 20px/24px system-ui, sans-serif;
+    text-align: center
+}
+
+.sp_flex_icons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eaeaea
+}
+
+.sp_flex_icons a {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    color: #000;
+    font-size: 12px;
+    gap: 6px
+}
+
+.sp_socialIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%
+}
+
+.sp_copy_link {
+    display: flex;
+    flex-direction: column;
+    gap: 18px
+}
+
+.sp_copy_link div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px
+}
+
+.sp_copy_link div label {
+    color: #121212;
+    font: 400 12px/16px Brown, sans-serif
+}
+
+.link_value {
+    border: 1px solid #ccc;
+    color: #121212;
+    font: 400 16px/24px Brown, sans-serif;
+    overflow: hidden;
+    padding: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: text
+}
+
+.sp_copy_link button {
+    background: #000;
+    color: #fff;
+    border-radius: 0;
+    border: 0;
+    padding: 14px;
+    width: 100%;
+    font: 500 18px/20px system-ui, sans-serif;
+    cursor: pointer
+}
+
+.video_slider {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+    padding-bottom: 20px
+}
+
+.slide_item {
+    position: relative;
+    cursor: pointer
+}
+
+.slide_item video {
+    width: 130px;
+    outline: 4px solid #deccb8
+}
+
+.needsclick {
+    position: absolute;
+    z-index: 9;
+    width: 88px;
+    height: 88px;
+    bottom: -8px;
+    left: -10px
+}
+
+.collection_badge {
+    bottom: 100%;
+    left: 0;
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    position: absolute;
+    z-index: 1
+}
+
+.collection_badge_inner {
+    height: 1.9375rem;
+    padding: 0 1.0625rem;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.collection_badge_inner span {
+    font-size: .8rem;
+    line-height: 1.3125rem;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    display: inline-block;
+    font-family: var(--base-font-family);
+    font-weight: 700;
+    letter-spacing: .1rem;
+    text-transform: uppercase
+}
+
+@media screen and (max-width: 1024px) {
+    .slide_item video {
+        width: 100%;
+        outline: 0;
+        border: 4px solid #deccb8
+    }
+
+    .video_slider {
+        gap: 10px
+    }
+
+    .needsclick {
+        width: 72px;
+        height: 72px;
+        bottom: 0;
+        left: -7px
+    }
+
+    .slide_item {
+        width: 100%
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .collection_badge_inner {
+        height: 1.3125rem
+    }
+
+    .cross_button svg {
+        width: 40px;
+        height: auto
+    }
+
+    .cross_button,
+    .right_bar {
+        top: 10px;
+        right: 10px
+    }
+
+    .videoContainer {
+        height: 75%;
+        width: 100%
+    }
+
+    .siderBar_slider {
+        display: none
+    }
+
+    .share_popup_content {
+        gap: 18px;
+        padding: 30px 20px
+    }
+
+    .sp_flex_icons {
+        padding-bottom: 20px
+    }
+
+    .sp_flex_icons {
+        gap: 0
+    }
+
+    .sp_flex_icons a {
+        font-size: 11px
+    }
+
+    .sp_socialIcon {
+        width: 44px;
+        height: 44px
+    }
+
+    .sp_socialIcon svg {
+        width: 20px
+    }
+
+    .sp_copy_link {
+        gap: 4px
+    }
+
+    .sp_copy_link button {
+        padding: 13px
+    }
+
+    .sp_copy_link div label {
+        font-size: 11px
+    }
+
+    .link_value {
+        font-size: 14px;
+        line-height: 20px
+    }
+}
