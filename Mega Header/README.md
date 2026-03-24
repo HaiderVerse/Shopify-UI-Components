@@ -28,9 +28,10 @@ Ideal for:
 - Custom Shopify theme development
 - Improving navigation UX
 
-## 📸 Screenshots (Optional)
+## 📸 Screenshots
 
-_Add screenshots here_
+![Mega Header Preview](./preview_first.png)
+![Mega Header Preview](./preview_second.png)
 
 ## 📄 License
 
