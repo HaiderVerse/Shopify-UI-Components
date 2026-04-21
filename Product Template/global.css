@@ -1,0 +1,161 @@
+:root {
+  --fromRGBA: rgba(0, 0, 0, 0.15);
+  font-family: "Open Sans", sans-serif;
+  /* replace SCSS variables */
+  --dark: #181a1f;
+  --white: #ffffff;
+  --light-gray: #e5e5e5;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  max-width: 100vw;
+  color: var(--dark);
+  font-family: var(--local-font);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+}
+
+#__next {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#__next main {
+  flex-grow: 1;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-family: var(--local-font);
+}
+
+input,
+textarea {
+  color: initial;
+  font-family: var(--local-font);
+}
+
+hr {
+  width: 100%;
+  margin: 1rem 0;
+  border-style: dashed;
+}
+
+/* Nested conversion */
+header ~ main {
+  margin-top: 60px; /* replace with actual value */
+}
+
+header ~ main.contentBelowHeader {
+  margin-top: 80px; /* replace */
+}
+
+/* Modal */
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Autocomplete */
+.localities-container {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  z-index: 101;
+  list-style: none;
+}
+
+.localities-container.localities-hidden {
+  display: none;
+}
+
+.localities-item {
+  padding: 16px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.localities-item:not(:last-child) {
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.localities-item:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar */
+.kiko-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.kiko-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(13deg, #888 14%, #999 64%);
+  border-radius: 10px;
+}
+
+/* Utility */
+.d-none {
+  display: none;
+}
+
+/* Animation */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.pulseAnimation {
+  animation: pulse 1.5s ease-in-out 0.5s infinite;
+}

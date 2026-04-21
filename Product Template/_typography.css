@@ -1,0 +1,30 @@
+html[dir=ltr] .button_button__EFbAC {
+    letter-spacing: -.03em;
+}
+.button_button__EFbAC {
+    font-size: .875rem;
+    font-weight: 700;
+    line-height: 100%;
+    overflow-wrap: break-word;
+    text-transform: uppercase;
+    transition: all .3s ease-out;
+    position: relative;
+    padding: .5rem 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    color: #fff;
+    min-height: 2rem;
+}
+.button_primary__p_Jiz {
+    background: linear-gradient(0deg, #fff 50%, #252b2e 0);
+    background-size: 100% 200%;
+    transition: background-position-y .3s ease-out, box-shadow .3s ease-out, color 50ms ease-out .15s;
+}
+@media (any-hover: hover) {
+    .button_primary__p_Jiz:not(:disabled):hover {
+        color: #252b2e;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, .16);
+        background-position-y: 100%;
+    }
+}
+
