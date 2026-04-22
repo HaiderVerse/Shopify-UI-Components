@@ -1,0 +1,347 @@
+{% assign selected_variant = product.selected_or_first_available_variant %}
+{% assign image_count = product.images.size %}
+
+{% stylesheet %}
+  :root {
+    --fromRGBA: rgba(0, 0, 0, 0.15);
+  }
+{% endstylesheet %}
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css"
+  integrity="sha512-pmAAV1X4Nh5jA9m+jcvwJXFQvCBi3T17aZ1KWkqXr7g/O2YMvO8rfaa5ETWDuBvRq6fbDjlw4jHL44jNTScaKg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+>
+{{ 'cosmetics-main-product.css' | asset_url | stylesheet_tag }}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"
+  integrity="sha512-Ysw1DcK1P+uYLqprEAzNQJP+J4hTx4t/3X2nbVwszao8wD+9afLjBQYjz7Uk4ADP+Er++mJoScI42ueGtQOzEA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+  defer
+></script>
+<script src="{{ 'cosmetics-main-product.js' | asset_url }}" defer></script>
+
+<div
+  id="CosmeticsPdp-{{ section.id }}"
+  class="page-width"
+  data-cosmetics-pdp
+  data-section-id="{{ section.id }}"
+  data-media-count="{{ image_count }}"
+>
+  <script type="application/json" data-product-json>
+    {
+      "productId": {{ product.id }},
+      "selectedVariantId": {{ selected_variant.id }},
+      "moneyFormat": {{ shop.money_format | json }},
+      "variants": [
+        {% for variant in product.variants %}
+          {
+            "id": {{ variant.id }},
+            "title": {{ variant.title | json }},
+            "available": {{ variant.available | json }},
+            "price": {{ variant.price }},
+            "inventory_quantity": {{ variant.inventory_quantity | default: 0 }},
+            "inventory_management": {{ variant.inventory_management | json }},
+            "inventory_policy": {{ variant.inventory_policy | json }},
+            "featured_media_id": {% if variant.featured_media %}{{ variant.featured_media.id }}{% else %}null{% endif %},
+            "shade_image": {% if variant.metafields.custom.shades_image != blank %}{{ variant.metafields.custom.shades_image | image_url: width: 64 | json }}{% elsif variant.featured_image %}{{ variant.featured_image | image_url: width: 64 | json }}{% else %}null{% endif %}
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  </script>
+
+  <div class="grid_container__b6Ooy product-showcase_pdpGrid__lmfe8">
+    <div class="product-showcase_pdpContainer__01wlr">
+      <section class="product-showcase_section1__GhSdY">
+        <div class="product-intro_pdpIntro__5MRHx">
+          <h1 class="product-intro_productName__MfL8o">{{ product.title }}</h1>
+          {% if product.description != blank %}
+            <h2 class="product-intro_pdpShortDesc___SLJk">{{ product.description | strip_html | truncate: 140 }}</h2>
+          {% endif %}
+
+          <div class="product-intro_showOnDesktopOnly__qAyia" data-thumbs-desktop>
+            <ul class="product-gallery-navigator_navigatorContainer product-gallery-navigator_contentStart__4Tnou" role="radiogroup">
+              {% for image in product.images %}
+                <li>
+                  <button
+                    class="product-gallery-navigator_navigatorButton {% if forloop.first %}product-gallery-navigator_active{% endif %}"
+                    role="radio"
+                    aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"
+                    data-gallery-thumb
+                    data-index="{{ forloop.index0 }}"
+                  >
+                    <div class="product-gallery-navigator_wrapperImage__TS9_N">
+                      <img
+                        alt="{{ image.alt | default: product.title | escape }}"
+                        loading="lazy"
+                        width="42"
+                        height="42"
+                        class="product-gallery-navigator_galleryImage__BGIA8"
+                        src="{{ image | image_url: width: 96, height: 96, crop: 'center' }}"
+                      >
+                    </div>
+                  </button>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="product-gallery_pdpGallery__XHv7M" data-main-gallery>
+          <div class="product-gallery_galleryWrapper__o1648">
+            <div class="swiper product-gallery_galleryCarousel" data-gallery-carousel>
+              <div class="swiper-wrapper">
+                {% for image in product.images %}
+                  <div class="swiper-slide product-gallery_gallerySlide__aNFX8" data-media-id="{{ image.id }}">
+                    <button class="product-gallery_galleryButton__S3y_y product-gallery_galleryDesktop__rMEYO" aria-label="Open gallery" tabindex="-1">
+                      <figure class="product-gallery_galleryImgWrapper__sv_XK">
+                        <img
+                          class="product-gallery_galleryImage__reMDc"
+                          alt="{{ image.alt | default: product.title | escape }}"
+                          src="{{ image | image_url: width: 1600 }}"
+                          loading="lazy"
+                        >
+                      </figure>
+                    </button>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <button class="product-gallery_openGallery__3sV0O" aria-label="Open gallery" data-open-popup>
+              <span class="icon_iconContainer__lS_O1">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M13.6 12.6 18 17M9.6 5.5v6M6.5 8.6h6m2.7 0A5.6 5.6 0 1 1 4 8.6a5.6 5.6 0 0 1 11.2 0Z" stroke="currentColor" stroke-width="2" stroke-linejoin="bevel"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="carousel-utils_absoluteContainer__XUmD8 product-gallery_galleryArrows__C_cyz" data-gallery-arrows>
+            <button class="carousel-utils_arrowL__e_hk7" aria-label="Previous slide" data-arrow="prev">
+              <span class="icon_iconContainer__lS_O1">
+                <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M12.75 4.5L7.25 10L12.75 15.5" stroke="currentColor" stroke-width="2" stroke-linejoin="bevel"></path>
+                </svg>
+              </span>
+            </button>
+            <button class="carousel-utils_arrowR__7AZ0v" aria-label="Next slide" data-arrow="next">
+              <span class="icon_iconContainer__lS_O1">
+                <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7.25 4.5L12.75 10L7.25 15.5" stroke="currentColor" stroke-width="2" stroke-linejoin="bevel"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <ul class="product-gallery_galleryNav__0zXQy product-gallery-navigator_contentCenter__4hzaP" role="radiogroup" data-thumbs-main>
+            {% for image in product.images %}
+              <li>
+                <button
+                  class="product-gallery-navigator_navigatorButton {% if forloop.first %}product-gallery-navigator_active{% endif %}"
+                  role="radio"
+                  aria-checked="{% if forloop.first %}true{% else %}false{% endif %}"
+                  data-gallery-thumb
+                  data-index="{{ forloop.index0 }}"
+                >
+                  <div class="product-gallery-navigator_wrapperImage__TS9_N">
+                    <img
+                      alt="{{ image.alt | default: product.title | escape }}"
+                      loading="lazy"
+                      width="42"
+                      height="42"
+                      class="product-gallery-navigator_galleryImage__BGIA8"
+                      src="{{ image | image_url: width: 96, height: 96, crop: 'center' }}"
+                    >
+                  </div>
+                </button>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="product-info_pdpInfo__XiTlu">
+          <div class="product-info_pdpInfoColumn__0_C_C">
+            <div class="pane_pane__h9PPS">
+              <div class="product-shade-selector_shadesHeader__brdn5">
+                <span class="product-shade-selector_colorName__Hq26z" data-selected-variant-label>{{ selected_variant.title }}</span>
+                <button type="button" class="product-shade-selector_shadesCount" data-shades-toggle>+{{ product.variants.size }}</button>
+              </div>
+
+              <div class="product-shade-selector_wrapperShades" data-shades-wrapper>
+                <div class="product-shade-selector_shadesSelector pane_pane__h9PPS" data-variants-list>
+                  {% for variant in product.variants %}
+                    <button
+                      type="button"
+                      class="{% if variant.id == selected_variant.id %}product-shade-selector_selectedShadeSelectorButton__6WqQv{% else %}product-shade-selector_shadeSelectorButton__RJJvK{% endif %}"
+                      data-variant-id="{{ variant.id }}"
+                      aria-label="Select {{ variant.title }}"
+                    >
+                      <span class="product-shade-selector_shadeImageWrapper__roXhZ">
+                        {% if variant.metafields.custom.shades_image != blank %}
+                          <img
+                            class="product-shade-selector_shadeImage__kWj40"
+                            src="{{ variant.metafields.custom.shades_image | image_url: width: 24, height: 24, crop: 'center' }}"
+                            alt="{{ variant.title | escape }}"
+                            width="20"
+                            height="20"
+                          >
+                        {% elsif variant.featured_image %}
+                          <img
+                            class="product-shade-selector_shadeImage__kWj40"
+                            src="{{ variant.featured_image | image_url: width: 24, height: 24, crop: 'center' }}"
+                            alt="{{ variant.title | escape }}"
+                            width="20"
+                            height="20"
+                          >
+                        {% endif %}
+                        {% unless variant.available %}
+                          <span class="product-shade-selector_outOfStock__4dIoQ"></span>
+                        {% endunless %}
+                      </span>
+                      <span class="product-shade-selector_shadeSelectorCode__gz5SC">{{ variant.option1 | default: variant.title | truncate: 6, '' }}</span>
+                    </button>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+            <div class="pane_pane__h9PPS product-info_purchaseInfo__sLVhC">
+              <div class="product-stacked-price_priceInfo__Imdcp">
+                <span class="product-stacked-price_displayPrice__Dl4Da" data-variant-price>{{ selected_variant.price | money }}</span>
+              </div>
+
+              <div class="product-actions_wrapperPrimary__8ww4a">
+                <div class="quantity-selector_quantitySelector__kmlGJ product-actions_quantitySelectorPrio__uEyhI product-actions_quantitySelector__Y87w7" data-quantity-wrap>
+                  <button type="button" class="beacon-cart-mod-btn quantity-selector_quantityButton__9Uixa" aria-label="Decrease quantity" data-qty-action="decrease">-</button>
+                  <input
+                    class="quantity-selector_quantityInput__ZG_I4"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="0"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    data-quantity-input
+                  >
+                  <button type="button" class="beacon-cart-mod-btn quantity-selector_quantityButton__9Uixa" aria-label="Increase quantity" data-qty-action="increase">+</button>
+                </div>
+
+                <button
+                  type="button"
+                  class="button_button__EFbAC button_primary__p_Jiz product-actions_primary__jSvHi beacon-cart-mod-btn"
+                  data-add-to-bag
+                >
+                  Add to bag
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-more-info_pdpTabs__8bOJN">
+          <button class="product-more-info_disclosureButton" type="button" aria-expanded="true" data-headlessui-state="open">
+            <h2>Description</h2>
+            <span class="icon_iconContainer__lS_O1">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6 8L10 12L14 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+          </button>
+          <div class="product-more-info_disclosurePanel" data-headlessui-state="open">
+            <div class="product-more-info_panelInner__A3yNV rte">{{ product.description }}</div>
+          </div>
+
+          <button class="product-more-info_disclosureButton" type="button" aria-expanded="false">
+            <h2>Delivery</h2>
+            <span class="icon_iconContainer__lS_O1">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6 8L10 12L14 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+          </button>
+          <div class="product-more-info_disclosurePanel">
+            <div class="product-more-info_panelInner__A3yNV">Fast shipping and secure checkout.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div id="headlessui-portal-root" style="display:none;" data-headlessui-portal-state="">
+  <div class="product-gallery_galleryDialog__b4AJu" role="dialog" aria-modal="true">
+    <div class="product-gallery_galleryPanel__OOiQ1">
+      <button class="product-gallery_galleryPanelClose__ySOUG" aria-label="Close gallery" data-close-popup>
+        <span class="icon_iconContainer__lS_O1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+      </button>
+      <div class="swiper" data-popup-carousel>
+        <div class="swiper-wrapper">
+          {% for image in product.images %}
+            <div class="swiper-slide product-gallery_gallerySlide__aNFX8" data-media-id="{{ image.id }}">
+              <figure class="product-gallery_galleryImgWrapper__sv_XK product-gallery_whileOpen__TjP9F">
+                <img class="product-gallery_galleryImage__reMDc" src="{{ image | image_url: width: 2000 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy">
+              </figure>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="carousel-utils_absoluteContainer__XUmD8 product-gallery_galleryArrows__C_cyz" data-popup-arrows>
+        <button class="carousel-utils_arrowL__e_hk7" aria-label="Previous slide" data-popup-arrow="prev">
+          <span class="icon_iconContainer__lS_O1">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12.75 4.5L7.25 10L12.75 15.5" stroke="currentColor" stroke-width="2" stroke-linejoin="bevel"></path>
+            </svg>
+          </span>
+        </button>
+        <button class="carousel-utils_arrowR__7AZ0v" aria-label="Next slide" data-popup-arrow="next">
+          <span class="icon_iconContainer__lS_O1">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7.25 4.5L12.75 10L7.25 15.5" stroke="currentColor" stroke-width="2" stroke-linejoin="bevel"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <ul class="product-gallery_galleryNav__0zXQy product-gallery-navigator_contentCenter__4hzaP" role="radiogroup" data-popup-thumbs>
+        {% for image in product.images %}
+          <li>
+            <button class="product-gallery-navigator_navigatorButton {% if forloop.first %}product-gallery-navigator_active{% endif %}" role="radio" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}" data-popup-thumb data-index="{{ forloop.index0 }}">
+              <div class="product-gallery-navigator_wrapperImage__TS9_N">
+                <img
+                  alt="{{ image.alt | default: product.title | escape }}"
+                  loading="lazy"
+                  width="42"
+                  height="42"
+                  class="product-gallery-navigator_galleryImage__BGIA8"
+                  src="{{ image | image_url: width: 96, height: 96, crop: 'center' }}"
+                >
+              </div>
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cosmetics Main Product",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Cosmetics Main Product"
+    }
+  ]
+}
+{% endschema %}

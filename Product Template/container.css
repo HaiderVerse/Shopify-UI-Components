@@ -1,28 +1,13 @@
 /* margins utility class (mixin replacement) */
 .container_container {
-  -webkit-margin-start: 16px;
-  margin-inline-start: 16px;
-  -webkit-margin-end: 16px;
-  margin-inline-end: 16px;
+  margin: 0 auto;
+  padding: 0 16px;
   max-width: 1920px;
 }
 
 /* md-desktop breakpoint */
 @media (min-width: 768px) {
   .container_container {
-    -webkit-margin-start: 32px;
-    margin-inline-start: 32px;
-    -webkit-margin-end: 32px;
-    margin-inline-end: 32px;
-  }
-}
-
-/* large desktop center alignment */
-@media (min-width: 1280px) {
-  .container_container {
-    -webkit-margin-start: 32px;
-    margin-inline-start: 32px;
-    -webkit-margin-end: 32px;
-    margin-inline-end: 32px;
+    padding: 0 32px;
   }
 }

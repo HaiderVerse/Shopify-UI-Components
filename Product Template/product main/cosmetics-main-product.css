@@ -1,5 +1,4 @@
 :root {
-  --fromRGBA: rgba(0, 0, 0, 0.15);
   --dark: #181a1f;
   --white: #ffffff;
   --light-gray: #e5e5e5;
@@ -17,7 +16,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+ul {
+    padding: 0;
+    margin:0
+}
 button {
   appearance: none;
   background: none;
@@ -388,6 +390,7 @@ button.product-gallery_bigButton__rzLwu {
     height: 52px;
     background: linear-gradient(90.07deg, rgba(219, 92, 0, .2) 15.54%, rgba(231, 135, 181, .2) 92.29%);
     border-radius: 50%;
+    padding: 0;
 }
 
 .product-gallery-navigator_navigatorButton:disabled {
@@ -1075,4 +1078,24 @@ html[dir=ltr] .product-beauty-services_buttonCol___MJ4O p {
     .product-shade-selector_shadesSelector {
         --row-size: 8;
     }
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.product-gallery_galleryButton__S3y_y {
+  cursor: zoom-in;
+}
+
+.product-actions_primary__jSvHi.is-hidden,
+.product-actions_quantitySelectorPrio__uEyhI.is-hidden {
+  display: none !important;
+}
+
+.quantity-selector_quantityInput__ZG_I4:disabled,
+.quantity-selector_quantityButton__9Uixa:disabled,
+.product-actions_primary__jSvHi:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

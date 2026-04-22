@@ -1,0 +1,172 @@
+.product-actions_wrapper__QJMRX{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+
+.product-actions_wrapperPrimary__8ww4a {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    flex-grow: 1;
+    transition: all .3s ease-out;
+}
+
+.product-actions_wrapperPrimary__8ww4a.product-actions_quantityOpen__es_Vv,
+.product-actions_wrapperPrimary__8ww4a:focus-within {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .16);
+}
+
+.product-actions_wrapperPrimary__8ww4a.product-actions_quantityOpen__es_Vv .product-actions_primary__jSvHi,
+.product-actions_wrapperPrimary__8ww4a:focus-within .product-actions_primary__jSvHi {
+    background-position-y: 100%;
+}
+.product-actions_quantitySelectorPrio__uEyhI.product-actions_quantitySelector__Y87w7 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 8px 12px;
+    z-index: 1;
+}
+.quantity-selector_quantitySelector__kmlGJ {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #252b2e;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .16);
+}
+
+
+.quantity-selector_quantityForm__lRq3f {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    transition: opacity .3s ease-in-out;
+}
+
+.quantity-selector_quantityButton__9Uixa {
+    display: flex;
+    padding: 4px;
+}
+.icon_iconContainer__lS_O1 {
+    position: relative;
+    display: flex;
+}
+
+.quantity-selector_quantityInput__ZG_I4 {
+    display: inline-block;
+    width: 30px;
+    height: 24px;
+    border: 0;
+    padding: 0;
+    outline: none;
+    line-height: 14px;
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: textfield;
+    transition: border-color .3s ease-in-out;
+    transform: translateZ(0);
+}
+
+.quantity-selector_quantityInput__ZG_I4:focus-visible {
+    border: .5px solid #252b2e;
+}
+
+.quantity-selector_quantityInput__ZG_I4::-webkit-outer-spin-button,
+.quantity-selector_quantityInput__ZG_I4::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.product-actions_primary__jSvHi {
+    width: 100%;
+    padding: 8px 12px;
+}
+
+
+.product-actions_buttonText__y3juT {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+.product-wishlist-button_wishlist__EMjuo:not(:disabled) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 8px;
+    color: #252b2e;
+    background: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .16);
+}
+
+.product-wishlist-button_wishlist__EMjuo:not(:disabled):focus {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .16);
+    color: #252b2e;
+}
+
+.product-wishlist-button_wishlist__EMjuo:not(:disabled) svg {
+    position: relative;
+    z-index: 1;
+}
+
+.product-wishlist-button_wishlist__EMjuo:not(:disabled) svg path {
+    fill: transparent;
+    stroke: currentColor;
+    transition: fill .3s ease-out, stroke .3s ease-out;
+}
+@media (min-width: 900px) {
+    .product-actions_wrapper__QJMRX {
+        flex-grow: 1;
+    }
+    .quantity-selector_quantityInput__ZG_I4 {
+        border-radius: 4px;
+        border: .5px solid #b5b5b5;
+    }
+}
+
+
+@media (any-hover: hover) {
+    .product-actions_wrapperPrimary__8ww4a:hover,
+    .product-wishlist-button_wishlist__EMjuo:not(:disabled):hover {
+        box-shadow: 0 3px 12px rgba(0, 0, 0, .16);
+    }
+    .product-actions_wrapperPrimary__8ww4a:hover .product-actions_primary__jSvHi {
+        background-position-y: 100%;
+    }
+
+    .product-actions_wrapperPrimary__8ww4a:hover .product-actions_primary__jSvHi:disabled {
+        background-position-y: 0;
+    }
+
+    .product-actions_wrapperPrimary__8ww4a:hover:has(.product-actions_primary__jSvHi:disabled) {
+        box-shadow: none;
+    }
+    
+    .product-wishlist-button_wishlist__EMjuo:not(:disabled):hover {
+        color: #252b2e;
+    }
+
+    .product-wishlist-button_wishlist__EMjuo:not(:disabled):hover svg path {
+        fill: currentColor;
+    }
+}

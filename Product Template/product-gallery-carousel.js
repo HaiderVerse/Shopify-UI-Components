@@ -20,20 +20,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const portalRoot      = document.getElementById('headlessui-portal-root');
     const popupDialog     = document.querySelector('.product-gallery_galleryDialog__b4AJu');
 
-    // ─── 1. Main Vertical Swiper ───────────────────────────────────────────────
-    if (mainGalleryEl) {
+    // ─── Helper: is desktop? ──────────────────────────────────────────────────
+    function isDesktop() {
+        return window.innerWidth >= 900;
+    }
+
+    // ─── 1. Main Swiper Init / Re-init ────────────────────────────────────────
+    function initMainSwiper() {
+        if (!mainGalleryEl) return;
+
         mainSwiper = new Swiper(mainGalleryEl, {
-            direction: 'vertical',
-            loop: false,
+            direction:     'horizontal',
+            loop:          false,
             slidesPerView: 1,
-            spaceBetween: 10,
+            spaceBetween:  10,
+            observer:      true,
+            observeParents:true,
             on: {
                 slideChange: function () {
                     syncThumbnails(mainSwiper.activeIndex);
                     updateArrowStates();
+                },
+                breakpoint: function () {
+                    updateArrowStates();
+                },
+                resize: function () {
+                    updateArrowStates();
+                }
+            },
+            breakpoints: {
+                900: {
+                    direction: 'vertical'
                 }
             }
         });
+
+        syncThumbnails(mainSwiper.activeIndex);
+        updateArrowStates();
     }
 
     // ─── 2. Thumbnail Sync ────────────────────────────────────────────────────
@@ -54,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const isFirst = idx === 0;
             arrowPrev.disabled = isFirst;
             arrowPrev.setAttribute('aria-disabled', isFirst ? 'true' : 'false');
-            arrowPrev.style.opacity      = isFirst ? '0.35' : '1';
+            arrowPrev.style.opacity       = isFirst ? '0.35' : '1';
             arrowPrev.style.pointerEvents = isFirst ? 'none' : 'auto';
         }
 
@@ -62,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const isLast = idx === total - 1;
             arrowNext.disabled = isLast;
             arrowNext.setAttribute('aria-disabled', isLast ? 'true' : 'false');
-            arrowNext.style.opacity      = isLast ? '0.35' : '1';
+            arrowNext.style.opacity       = isLast ? '0.35' : '1';
             arrowNext.style.pointerEvents = isLast ? 'none' : 'auto';
         }
     }
@@ -71,9 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
     thumbButtons.forEach(function (btn, index) {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
-            if (mainSwiper) {
-                mainSwiper.slideTo(index);
-            }
+            if (mainSwiper) mainSwiper.slideTo(index);
         });
     });
 
@@ -99,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
             customCursor = document.createElement('div');
             customCursor.id = 'custom-zoom-cursor';
 
-            // Magnifying glass SVG (with + sign) inside a frosted white circle
             customCursor.innerHTML = [
                 '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"',
                 '     fill="none" stroke="rgba(0,0,0,0.72)" stroke-width="2.2"',
@@ -112,19 +132,19 @@ document.addEventListener('DOMContentLoaded', function () {
             ].join('');
 
             Object.assign(customCursor.style, {
-                position:        'fixed',
-                width:           '46px',
-                height:          '46px',
-                borderRadius:    '50%',
-                pointerEvents:   'none',
-                zIndex:          '10000',
-                display:         'none',
-                background:      'rgba(255,255,255,0.05)',
-                boxShadow:       '0 2px 14px rgba(0,0,0,0.16)',
-                transform:       'translate(-50%, -50%)',
-                transition:      'opacity 0.12s',
-                alignItems:      'center',
-                justifyContent:  'center',
+                position:       'fixed',
+                width:          '46px',
+                height:         '46px',
+                borderRadius:   '50%',
+                pointerEvents:  'none',
+                zIndex:         '10000',
+                display:        'none',
+                background:     'rgba(255,255,255,0.05)',
+                boxShadow:      '0 2px 14px rgba(0,0,0,0.16)',
+                transform:      'translate(-50%, -50%)',
+                transition:     'opacity 0.12s',
+                alignItems:     'center',
+                justifyContent: 'center',
             });
 
             document.body.appendChild(customCursor);
@@ -148,8 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
         img.style.transform       = 'scale(' + ZOOM_LEVEL + ')';
         img.style.transformOrigin = 'center center';
         btn.style.overflow        = 'hidden';
-        // Hide native cursor on the element via JS property (no CSS)
-        btn.style.cursor = 'none';
+        btn.style.cursor          = 'none';
     }
 
     function resetZoom(img, btn) {
@@ -159,14 +178,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateZoomOrigin(img, btn, e) {
-        const rect     = btn.getBoundingClientRect();
-        const pctX     = ((e.clientX - rect.left) / rect.width)  * 100;
-        const pctY     = ((e.clientY - rect.top)  / rect.height) * 100;
+        const rect = btn.getBoundingClientRect();
+        const pctX = ((e.clientX - rect.left) / rect.width)  * 100;
+        const pctY = ((e.clientY - rect.top)  / rect.height) * 100;
         img.style.transformOrigin = pctX + '% ' + pctY + '%';
     }
 
     galleryButtons.forEach(function (btn) {
-        // Only add zoom if this button is NOT inside the popup dialog
         if (popupDialog && popupDialog.contains(btn)) return;
 
         btn.addEventListener('mouseenter', function () {
@@ -186,18 +204,12 @@ document.addEventListener('DOMContentLoaded', function () {
             hideCursor();
         });
 
-        btn.addEventListener('mousedown', function () {
-            this.style.cursor = 'none'; // keep hidden while dragging
-        });
-
-        btn.addEventListener('mouseup', function () {
-            this.style.cursor = 'none';
-        });
+        btn.addEventListener('mousedown', function () { this.style.cursor = 'none'; });
+        btn.addEventListener('mouseup',   function () { this.style.cursor = 'none'; });
     });
 
     // ─── 5. Popup Open ────────────────────────────────────────────────────────
     galleryButtons.forEach(function (btn) {
-        // Only main gallery buttons open the popup (not popup's own buttons)
         if (popupDialog && popupDialog.contains(btn)) return;
 
         btn.addEventListener('click', function (e) {
@@ -211,54 +223,64 @@ document.addEventListener('DOMContentLoaded', function () {
             if (img) resetZoom(img, this);
             hideCursor();
 
-            // Show the portal/dialog
             portalRoot.style.display = 'block';
             portalRoot.setAttribute('data-headlessui-portal-state', 'open');
-            document.body.style.overflow = 'hidden'; // prevent background scroll
-            // Find swiper element inside popup
+            document.body.style.overflow = 'hidden';
+
             const popupSwiperEl = popupDialog.querySelector('.swiper');
 
             if (popupSwiperEl) {
-                // If already initialized → just slide to correct index
                 if (popupSwiperEl.swiper) {
                     popupSwiperEl.swiper.slideTo(activeIndex, 0);
                     popupSwiper = popupSwiperEl.swiper;
                 } else {
-                    // Initialize popup swiper — vertical, no zoom
                     popupSwiper = new Swiper(popupSwiperEl, {
-                        direction:     'vertical',
-                        loop:          false,
+                        direction:     'horizontal',
+                        loop:         false,
                         slidesPerView: 1,
-                        initialSlide:  activeIndex,
+                        initialSlide: activeIndex,
+                        on: {
+                            slideChange: function () {
+                                syncThumbnails(mainSwiper.activeIndex);
+                                updateArrowStates();
+                            },
+                            breakpoint: function () {
+                                updateArrowStates();
+                            },
+                            resize: function () {
+                                updateArrowStates();
+                            }
+                        },
+                        breakpoints: {
+                            900: {
+                                direction: 'vertical'
+                            }
+                        }
                     });
                 }
 
-                // Sync popup thumbnail nav (if any inside popup)
                 syncPopupThumbnails(activeIndex);
 
-                // Keep popup thumbnails in sync on slide change
                 if (popupSwiper) {
-                    popupSwiper.off('slideChange'); // avoid duplicate listeners
+                    popupSwiper.off('slideChange');
                     popupSwiper.on('slideChange', function () {
                         syncPopupThumbnails(popupSwiper.activeIndex);
                     });
                 }
             }
 
-            // Close button
             const closeBtn = popupDialog.querySelector('.product-gallery_galleryPanelClose__ySOUG');
             if (closeBtn) {
-                // Replace onclick so no duplicate listeners build up
                 closeBtn.onclick = function () {
                     portalRoot.style.display = 'none';
                     portalRoot.setAttribute('data-headlessui-portal-state', '');
-                    document.body.style.overflow = 'auto'; // restore background scroll
+                    document.body.style.overflow = 'auto';
                 };
             }
         });
     });
 
-    // ─── 6. Popup Thumbnail Sync (inside popup, if exists) ───────────────────
+    // ─── 6. Popup Thumbnail Sync ──────────────────────────────────────────────
     function syncPopupThumbnails(activeIndex) {
         if (!popupDialog) return;
         const popupThumbs = popupDialog.querySelectorAll('.product-gallery-navigator_navigatorButton');
@@ -268,7 +290,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Popup thumbnail clicks → move popup swiper
     if (popupDialog) {
         const popupThumbs = popupDialog.querySelectorAll('.product-gallery-navigator_navigatorButton');
         popupThumbs.forEach(function (btn, index) {
@@ -278,7 +299,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // Popup arrow buttons (if present)
         const popupArrowPrev = popupDialog.querySelector('.carousel-utils_arrowL__e_hk7');
         const popupArrowNext = popupDialog.querySelector('.carousel-utils_arrowR__7AZ0v');
         if (popupArrowPrev) {
@@ -293,10 +313,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // ─── 7. Initial thumbnail state & arrow state ─────────────────────────────
-    if (mainSwiper) {
-        syncThumbnails(mainSwiper.activeIndex);
-        updateArrowStates();
-    }
+    // ─── 7. Initial Init ──────────────────────────────────────────────────────
+    initMainSwiper();
 
+    // ─── 8. Resize → Re-init if breakpoint crossed ───────────────────────────
 });
